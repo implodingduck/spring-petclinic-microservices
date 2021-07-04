@@ -10,7 +10,6 @@ RUN wget -O dockerize.tar.gz https://github.com/jwilder/dockerize/releases/downl
 RUN tar xzf dockerize.tar.gz
 RUN chmod +x dockerize
 
-
 # wget is not installed on adoptopenjdk:11-jre-hotspot
 FROM adoptopenjdk:11-jre-hotspot
 
@@ -18,6 +17,7 @@ WORKDIR application
 
 # Dockerize
 COPY --from=builder application/dockerize ./
+RUN curl -sOL https://github.com/microsoft/ApplicationInsights-Java/releases/download/3.1.0/applicationinsights-agent-3.1.0.jar
 
 ARG EXPOSED_PORT
 EXPOSE ${EXPOSED_PORT}
